@@ -1,2 +1,5 @@
 services:
   - docker
+
+script:
+  - echo "hello travis-ci"
