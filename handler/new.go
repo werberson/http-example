@@ -3,7 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"github.com/gorilla/mux"
-	"http-example/session"
+	"github.com/werberson/http-example/session"
 	"net/http"
 )
 

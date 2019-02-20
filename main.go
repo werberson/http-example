@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gorilla/mux"
-	"http-example/handler"
+	"github.com/werberson/http-example/handler"
 	"log"
 	"net/http"
 )

@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
-	"http-example/crypt"
-	"http-example/session"
+	"github.com/werberson/http-example/crypt"
+	"github.com/werberson/http-example/session"
 	"net/http"
 )
 
