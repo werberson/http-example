@@ -4,4 +4,4 @@ services:
   - docker
 
 script:
-  - echo "Executed when pull request created"
+  - echo "$TRAVIS_BRANCH  $TRAVIS_PULL_REQUEST"
