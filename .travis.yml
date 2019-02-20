@@ -4,4 +4,4 @@ services:
   - docker
 
 script:
-  - echo "hello travis-ci"
+  - echo "Executed when pull request created"
