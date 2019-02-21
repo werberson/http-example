@@ -10,6 +10,7 @@ services:
 # fail, build the images (if this step fails
 # the whole Travis build is considered a failure).
 script:
+  - env
   - 'make test'
   - 'make image'
 
@@ -22,7 +23,9 @@ script:
 # page of your repository and then change the
 # environment in the settings pannel.
 after_success:
+  - if [ "$TRAVIS_TAG" ]; then
+    echo $TRAVIS_TAG;
+    fi;
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-    docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
-    make push-image ;
+    echo $TRAVIS_BRANCH;
     fi
