@@ -4,4 +4,6 @@ services:
   - docker
 
 script:
+  - pwd
+  - ls -lash
   - docker build -t http-example .
