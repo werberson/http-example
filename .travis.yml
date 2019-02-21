@@ -6,4 +6,5 @@ services:
 script:
   - pwd
   - ls -lash
+  - env
   - docker build -t http-example .
