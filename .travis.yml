@@ -4,8 +4,7 @@ go:
   - 1.12.x
   - 1.13.x
 
-# have the docker service set up (we'll
-# update it later)
+# have the docker service set up (we'll update it later)
 services:
   - docker
 
@@ -37,7 +36,7 @@ after_success:
   - if [ "$TRAVIS_TAG" ]; then
     echo $VERSION;
     docker build -f Dockerfile -t $IMAGE .;
-    echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
+    echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin;
     docker tag $IMAGE $IMAGE:$VERSION;
     docker push $IMAGE:$VERSION;
     fi;
