@@ -9,6 +9,12 @@ go:
 services:
   - docker
 
+env:
+  global:
+    - IMAGE=$TRAVIS_REPO_SLUG
+    - VERSION=$TRAVIS_TAG
+#    - GO111MODULE=on
+
 # first execute the test suite.
 # after the test execution is done and didn't
 # fail, build the images (if this step fails
@@ -27,13 +33,13 @@ script:
 # page of your repository and then change the
 # environment in the settings pannel.
 after_success:
-  - echo $TRAVIS_REPO_SLUG
+  - echo $IMAGE
   - if [ "$TRAVIS_TAG" ]; then
-    echo $TRAVIS_TAG;
-    docker build -f Dockerfile -t $TRAVIS_REPO_SLUG .;
+    echo $VERSION;
+    docker build -f Dockerfile -t $IMAGE .;
     docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD;
-    docker tag $TRAVIS_REPO_SLUG $TRAVIS_REPO_SLUG:$TRAVIS_TAG;
-    docker push $TRAVIS_REPO_SLUG:$TRAVIS_TAG;
+    docker tag $IMAGE $IMAGE:$VERSION;
+    docker push $IMAGE:$VERSION;
     fi;
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
     echo "branch is master";
