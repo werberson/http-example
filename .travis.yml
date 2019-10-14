@@ -37,7 +37,7 @@ after_success:
   - if [ "$TRAVIS_TAG" ]; then
     echo $VERSION;
     docker build -f Dockerfile -t $IMAGE .;
-    docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD;
+    echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
     docker tag $IMAGE $IMAGE:$VERSION;
     docker push $IMAGE:$VERSION;
     fi;
