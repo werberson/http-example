@@ -1,9 +1,19 @@
-language: bash
+language: go
+
+go:
+  - 1.12.x
+  - 1.13.x
 
 # have the docker service set up (we'll
 # update it later)
 services:
   - docker
+
+env:
+  global:
+    - IMAGE=$TRAVIS_REPO_SLUG
+    - VERSION=$TRAVIS_TAG
+#    - GO111MODULE=on
 
 # first execute the test suite.
 # after the test execution is done and didn't
@@ -23,10 +33,15 @@ script:
 # page of your repository and then change the
 # environment in the settings pannel.
 after_success:
-  - echo $TRAVIS_REPO_SLUG
+  - echo $IMAGE
   - if [ "$TRAVIS_TAG" ]; then
-    echo $TRAVIS_TAG;
+    echo $VERSION;
+    docker build -f Dockerfile -t $IMAGE .;
+    docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD;
+    docker tag $IMAGE $IMAGE:$VERSION;
+    docker push $IMAGE:$VERSION;
     fi;
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+    echo "branch is master";
     echo $TRAVIS_BRANCH;
     fi
