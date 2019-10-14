@@ -26,7 +26,12 @@ after_success:
   - echo $TRAVIS_REPO_SLUG
   - if [ "$TRAVIS_TAG" ]; then
     echo $TRAVIS_TAG;
+    docker build -f Dockerfile -t $TRAVIS_REPO_SLUG .
+    docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    docker tag $TRAVIS_REPO_SLUG $TRAVIS_REPO_SLUG:$TRAVIS_TAG
+    docker push $TRAVIS_REPO_SLUG:$TRAVIS_TAG
     fi;
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+    echo "branch is master"
     echo $TRAVIS_BRANCH;
     fi
