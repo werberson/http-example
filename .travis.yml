@@ -1,4 +1,8 @@
-language: bash
+language: go
+
+go:
+  - 1.12.x
+  - 1.13.x
 
 # have the docker service set up (we'll
 # update it later)
