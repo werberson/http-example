@@ -23,6 +23,7 @@ script:
 # page of your repository and then change the
 # environment in the settings pannel.
 after_success:
+  - echo $TRAVIS_REPO_SLUG
   - if [ "$TRAVIS_TAG" ]; then
     echo $TRAVIS_TAG;
     fi;
