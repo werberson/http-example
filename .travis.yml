@@ -1,12 +1,15 @@
 language: go
 
-go:
-  - 1.12.x
-  - 1.13.x
-
 # have the docker service set up (we'll update it later)
 services:
   - docker
+
+matrix:
+  fast_finish: true
+  include:
+    - go: 1.13.x
+    - go: 1.12.x
+      env: STABLE=true
 
 env:
   global:
@@ -23,24 +26,10 @@ script:
   - 'make test'
   - 'make image'
 
-# only execute the following instructions in
-# the case of a success (failing at this point
-# won't mark the build as a failure).
-# To have `DOCKER_USERNAME` and `DOCKER_PASSWORD`
-# filled you need to either use `travis`' cli
-# and then `travis set ..` or go to the travis
-# page of your repository and then change the
-# environment in the settings pannel.
-after_success:
-  - echo $IMAGE
-  - if [ "$TRAVIS_TAG" ]; then
-    echo $VERSION;
-    docker build -f Dockerfile -t $IMAGE .;
-    echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin;
-    docker tag $IMAGE $IMAGE:$VERSION;
-    docker push $IMAGE:$VERSION;
-    fi;
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-    echo "branch is master";
-    echo $TRAVIS_BRANCH;
-    fi
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: make image-release
+    on:
+      tags: true
+      condition: $STABLE = true
