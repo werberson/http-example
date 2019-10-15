@@ -1,7 +1,7 @@
 IMAGE := werberson/http-example
 
 test:
-    go test -v ./...
+	go test -v ./...
 
 image:
 	@echo Image: $(IMAGE)
