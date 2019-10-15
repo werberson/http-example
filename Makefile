@@ -1,16 +1,18 @@
 IMAGE := werberson/http-example
 
 test:
-	true
+	go test -v -cover ./...
 
 image:
-	docker build -t $(IMAGE) .
+	@echo Image: $(IMAGE)
+	docker build -f Dockerfile -t $(IMAGE) .
 
-image-release:
-	echo "$(DOCKER_PASSWORD)" | docker login -u "$(DOCKER_USERNAME)" --password-stdin
-	docker tag $(IMAGE) $(IMAGE):latest
-#	docker tag $(IMAGE) $(IMAGE):
-#	docker push $(USER_NAME)/$(SITE_NAME):latest
-#	docker push $(USER_NAME)/$(SITE_NAME):$(SHA)
+image-release: image
+	@echo Image: $(VERSION)
+	@echo DOCKER_USERNAME: $(DOCKER_USERNAME)
+	@echo "$(DOCKER_PASSWORD)" | docker login -u "$(DOCKER_USERNAME)" --password-stdin
+	docker build -f Dockerfile -t $(IMAGE) .
+	docker tag $(IMAGE) $(IMAGE):$(VERSION)
+	docker push $(IMAGE):$(VERSION)
 
-.PHONY: image push-image test
+.PHONY: test image image-releases
