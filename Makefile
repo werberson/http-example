@@ -1,5 +1,8 @@
 IMAGE := werberson/http-example
 
+test:
+    go test -v ./...
+
 image:
 	@echo Image: $(IMAGE)
 	docker build -f Dockerfile -t $(IMAGE) .
@@ -12,4 +15,4 @@ image-release: image
 	docker tag $(IMAGE) $(IMAGE):$(VERSION)
 	docker push $(IMAGE):$(VERSION)
 
-.PHONY: image image-releases
+.PHONY: test image image-releases
