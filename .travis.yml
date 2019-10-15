@@ -5,7 +5,6 @@ services:
   - docker
 
 matrix:
-  fast_finish: true
   include:
     - go: 1.13.x
     - go: 1.12.x
@@ -17,14 +16,17 @@ env:
     - VERSION=$TRAVIS_TAG
 #    - GO111MODULE=on
 
+install:
+  - go get -v ./...
+
 # first execute the test suite.
 # after the test execution is done and didn't
 # fail, build the images (if this step fails
 # the whole Travis build is considered a failure).
 script:
   - env
-  - 'make test'
-  - 'make image'
+  - make test
+  - make image
 
 deploy:
   - provider: script
