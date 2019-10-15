@@ -26,7 +26,6 @@ install:
 script:
   - env
   - make test
-  - make image
 
 deploy:
   - provider: script
