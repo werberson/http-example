@@ -3,6 +3,16 @@ name: default
 
 steps:
   - name: test
-    image: golang
+    image: golang:${GO_VERSION}
     commands:
       - go test
+
+matrix:
+  GO_VERSION:
+    - "1.6"
+
+trigger:
+  branch:
+    - master
+  event:
+    - pull_request
