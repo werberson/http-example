@@ -1,0 +1,14 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: test
+    image: golang:1.16
+    commands:
+      - go test
+
+trigger:
+  branch:
+    - master
+  event:
+    - pull_request
