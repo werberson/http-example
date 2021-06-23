@@ -20,7 +20,7 @@ func (s Session) AddAttribute(key string, data interface{}) {
 }
 
 func Create(name, clientKey string) Session {
-	s := Session{ClientKey: clientKey, ServerKey: uuid.Must(uuid.NewV4()).String()}
+	s := Session{ClientKey: clientKey, ServerKey: uuid.NewV4().String()}
 	sessions[name] = s
 	return s
 }
