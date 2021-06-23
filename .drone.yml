@@ -3,13 +3,9 @@ name: default
 
 steps:
   - name: test
-    image: golang:${GO_VERSION}
+    image: golang:1.16
     commands:
       - go test
-
-matrix:
-  GO_VERSION:
-    - "1.16"
 
 trigger:
   branch:
